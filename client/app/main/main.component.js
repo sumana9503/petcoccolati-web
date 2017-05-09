@@ -16,9 +16,9 @@ export class MainController {
         this.$http = $http;
         this.socket = socket;
 
-        $scope.$on('$destroy', function() {
+        /**$scope.$on('$destroy', function() {
             socket.unsyncUpdates('thing');
-        });
+        });*/
     }
 
     addSlide(image) {
@@ -35,16 +35,11 @@ export class MainController {
         for (var i = 0; i < 5; i++) {
             this.addSlide(i);
         }
-        this.$http.get('/api1/things')
+        /**this.$http.get('/api/things')
             .then(response => {
                 this.awesomeThings = response.data;
                 this.socket.syncUpdates('thing', this.awesomeThings);
-            });
-        this.$http.get('/api2/things')
-            .then(response => {
-                this.awesomeThings = response.data;
-                this.socket.syncUpdates('thing', this.awesomeThings);
-            });
+            });*/
     }
 
     /**addThing() {

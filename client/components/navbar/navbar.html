@@ -13,10 +13,22 @@
         </div>
         <div uib-collapse="$ctrl.isCollapsed" class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
+                <!--general menu-->
                 <li ng-repeat="item in $ctrl.menu" ui-sref-active="active">
                     <a ui-sref="{{item.state}}">{{item.title}}</a>
                 </li>
-                <li ng-show="$ctrl.isAdmin()" ui-sref-active="active"><a ui-sref="admin">Admin</a></li>
+                <!--admin menu-->
+                <li ng-repeat="item in $ctrl.adminMenu" ng-show="$ctrl.isAdmin()" ui-sref-active="active">
+                    <a ui-sref="{{item.state}}">{{item.title}}</a>
+                </li>
+                <!--establishment menu-->
+                <li ng-repeat="item in $ctrl.estabMenu" ng-show="$ctrl.getCurrentUser().role === 'establishment'" ui-sref-active="active">
+                    <a ui-sref="{{item.state}}">{{item.title}}</a>
+                </li>
+                <!--user menu-->
+                <li ng-repeat="item in $ctrl.userMenu" ng-show="$ctrl.getCurrentUser().role === 'user'" ui-sref-active="active">
+                    <a ui-sref="{{item.state}}">{{item.title}}</a>
+                </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

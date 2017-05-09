@@ -13,7 +13,7 @@ import uiBootstrap from 'angular-ui-bootstrap';
 import 'angular-validation-match';
 
 import {
-  routeConfig
+    routeConfig
 } from './app.config';
 
 import _Auth from '../components/auth/auth.module';
@@ -28,27 +28,35 @@ import socket from '../components/socket/socket.service';
 
 import './app.scss';
 
-angular.module('petCoccolattiApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', uiRouter,
-  uiBootstrap, _Auth, account, admin, 'validation.match', navbar, footer, main, constants,
-  socket, util
-])
-  .config(routeConfig)
-  .run(function($rootScope, $location, Auth) {
-    'ngInject';
-    // Redirect to login if route requires auth and you're not logged in
+//app components
+import ordersComponent from './orders/orders.component';
+import petComponent from './pets/pets.component';
+import recordsComponent from './records/records.component';
+import servicesComponent from './services/services.component';
 
-    $rootScope.$on('$stateChangeStart', function(event, next) {
-      Auth.isLoggedIn(function(loggedIn) {
-        if(next.authenticate && !loggedIn) {
-          $location.path('/login');
-        }
-      });
+
+angular.module('petCoccolattiApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', uiRouter,
+        uiBootstrap, _Auth, account, admin, 'validation.match', navbar, footer, main, constants,
+        socket, util,
+        ordersComponent, petComponent, recordsComponent, servicesComponent
+    ])
+    .config(routeConfig)
+    .run(function($rootScope, $location, Auth) {
+        'ngInject';
+        // Redirect to login if route requires auth and you're not logged in
+
+        $rootScope.$on('$stateChangeStart', function(event, next) {
+            Auth.isLoggedIn(function(loggedIn) {
+                if (next.authenticate && !loggedIn) {
+                    $location.path('/login');
+                }
+            });
+        });
     });
-  });
 
 angular.element(document)
-  .ready(() => {
-    angular.bootstrap(document, ['petCoccolattiApp'], {
-      strictDi: true
+    .ready(() => {
+        angular.bootstrap(document, ['petCoccolattiApp'], {
+            strictDi: true
+        });
     });
-  });
